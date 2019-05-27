@@ -6,7 +6,7 @@ void renderDisplay(void);
 
 int main(int argc, char ** argv){
     initGLWindow(640, 480, "BelajarOpenGL-672017282", GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowPosition(1920, 1080);
+    
     glutDisplayFunc(renderDisplay);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -22,4 +22,5 @@ void renderDisplay(void){
     poly(300, 250, 200, 5, 1);
 
     glutSwapBuffers();
+    b
 }
