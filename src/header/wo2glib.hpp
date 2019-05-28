@@ -13,10 +13,10 @@
 //--------------------------------------------- INITIALIZER HELPER
 #define initGLWindow(width, height, posX, posY, window_name, display_mode_switches) \
     glutInit(&argc, argv); \
-    glutInitDisplayMode(switches); \
+    glutInitDisplayMode(display_mode_switches); \
     glutInitWindowSize(width, height); \
     glutInitWindowPosition(posX, posY); \
-    glutCreateWindow(name)
+    glutCreateWindow(window_name)
 
 //--------------------------------------------- SHORTHAND FOR glBegin's MODE
 #define S_POINT glBegin(GL_POINTS)
