@@ -14,7 +14,9 @@ sleep 0.2
 echo "-------------------"
 echo ""
 echo "COMPILING..."
-$CC $CFLAGS -o bin/main.exec src/main.cpp -lGL -lGLU -lglut
+$CC $CFLAGS -o bin/main.o -c src/main.cpp
+$CC $CFLAGS -o bin/main.exec bin/main.o -lGL -lGLU -lglut
+
 echo "------------"
 echo ""
 echo "Running..."

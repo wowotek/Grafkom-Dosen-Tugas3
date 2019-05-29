@@ -1,7 +1,3 @@
-#include <iostream>
-#include "wo2glib.hpp"
-#include "wo2util.hpp"
-
 #include "entities.hpp"
 
 void renderDisplay(void);

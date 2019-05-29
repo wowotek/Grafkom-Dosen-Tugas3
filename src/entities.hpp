@@ -1,12 +1,9 @@
 #ifndef ENTITIES_HPP
 #define ENTITIES_HPP
 
+#include <iostream>
 #include "wo2glib.hpp"
 #include "wo2util.hpp"
-
-#define FILL_COLOR  0
-#define WHITE_COLOR 1
-#define LINE_ONLY   2
 
 class Entities{
     private:
@@ -41,7 +38,6 @@ class Entities{
         void changeFillType(GLint);
         void changeRotationDirection(GLboolean);
 };
-
 
 Entities::Entities(GLfloat initPosX, GLfloat initPosY, GLfloat initR, GLfloat initG, GLfloat initB, GLint POLYGON_TYPE){
     posX = initPosX;
