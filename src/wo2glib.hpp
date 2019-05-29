@@ -44,33 +44,25 @@
         glVertex2f(x + width, y + height); glVertex2f(x, y + height); \
     glEnd()
 
-#define circle(x, y, radius) \
-    glEnable(GL_POINT_SMOOTH); \
-    glPointSize(radius); \
-    glBegin(GL_POINTS); \
-        glVertex2f(x, y); \
-    glEnd(); \
-    glPointSize(1);
+void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, GLenum SHAPE_MODE){
+    float angleIncrement = (360.0f / sides) * M_PI / 180.0f;
+    glBegin(SHAPE_MODE);
+        float angle = 0.0f - rotation;
+        for (size_t _k = 0; _k < sides; ++_k) {
+            glVertex2f(x + (size * cos(angle)), y + (size * sin(angle)));
+            angle += angleIncrement;
+        }
+    glEnd();
+}
 
 #define poly(x, y, size, sides, rotation) \
-    float angleIncrement = (360.0f / sides) * M_PI / 180.0f; \
-    glBegin(GL_TRIANGLE_FAN); \
-        float angle = 0.0f + rotation; \
-        for (size_t _k = 0; _k < sides; ++_k) { \
-            glVertex2f(x + (size * cos(angle)), y + (size * sin(angle))); \
-            angle += angleIncrement; \
-        } \
-    glEnd(); \
+    polym(x, y, size, sides, rotation, GL_TRIANGLE_FAN)
 
-#define polym(x, y, size, sides, rotation, mode) \
-    float _angleIncrement = 360.0f / sides; \
-    _angleIncrement *= M_PI / 180.0f; \
-    glBegin(mode); \
-        float _angle = 0.0f + rotation; \
-        for (size_t k = 0; k < sides; ++k) { \
-            glVertex2f(x + (size * cos(_angle)), y + (size * sin(_angle))); \
-            _angle += _angleIncrement; \
-        } \
-    glEnd(); \
+#define circlem(x, y, radius, SHAPE_MODE) \
+    polym(x, y, radius, 5000000, 0, SHAPE_MODE)
+
+#define circle(x, y, radius) \
+    poly(x, y, radius, 5000000, 0)
+
 
 #endif // WO2GLIB_HPP

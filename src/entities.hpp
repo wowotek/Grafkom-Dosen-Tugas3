@@ -12,21 +12,34 @@ class Entities{
     private:
         GLfloat posX, posY;
         GLfloat r, g, b;
+
+        // 0 = Square
+        // 1 = Circle
+        // 2 = Pentagon
         GLint polygon_type;
 
         // 0 = normal Color
         // 1 = White
         // 2 = line only
-        GLint currentState = 0;
+        GLint fillState = 0;
+
+        // true = Clock-Wise
+        // false = Counter-Clock-Wise
+        GLboolean rotationDirection = true;
+        GLfloat rotation = 0;
 
         void drawFill(void);
         void drawWhite(void);
         void drawLine(void);
+
     public:
         Entities(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLint);
 
         void draw(void);
-        void changeBehavior(GLint behavior);
+        void update(void);
+
+        void changeFillType(GLint);
+        void changeRotationDirection(GLboolean);
 };
 
 
@@ -46,14 +59,14 @@ void Entities::drawFill(void){
 
     switch(polygon_type){
         default: break;
-        case 0: // A square
-            rect(posX, posY, 50, 50);
+        case 0:
+            poly(posX, posY, 50, 4, rotation);
             break;
-        case 1: // A circle
-            circle(posX, posY, 100);
+        case 1:
+            poly(posX, posY, 50, 1500, rotation);
             break;
-        case 2: // A pentagon
-            poly(posX, posY, 50, 5, 1);
+        case 2:
+            poly(posX, posY, 50, 5, rotation);
             break;
     }
 }
@@ -63,14 +76,14 @@ void Entities::drawWhite(void){
 
     switch(polygon_type){
         default: break;
-        case 0: // A square
-            rect(posX, posY, 50, 50);
+        case 0:
+            poly(posX, posY, 50, 4, rotation);
             break;
-        case 1: // A circle
-            circle(posX, posY, 100);
+        case 1:
+            poly(posX, posY, 50, 1500, rotation);
             break;
-        case 2: // A pentagon
-            poly(posX, posY, 50, 5, 0);
+        case 2:
+            poly(posX, posY, 50, 5, rotation);
             break;
     }
 }
@@ -80,20 +93,20 @@ void Entities::drawLine(void){
 
     switch(polygon_type){
         default: break;
-        case 0: // A square
-            rectm(posX, posY, 50, 50, GL_LINE_LOOP);
+        case 0:
+            polym(posX, posY, 50, 4, rotation, GL_LINE_LOOP);
             break;
-        case 1: // A circle
-            circle(posX, posY, 100);
+        case 1:
+            polym(posX, posY, 50, 1500, rotation, GL_LINE_LOOP);
             break;
-        case 2: // A pentagon
-            polym(posX, posY, 50, 5, 0, GL_LINE_LOOP);
+        case 2:
+            polym(posX, posY, 50, 5, rotation, GL_LINE_LOOP);
             break;
     }
 }
 
 void Entities::draw(void){
-    switch(currentState){
+    switch(fillState){
         default: break;
         case 0:
             drawFill();
@@ -107,12 +120,29 @@ void Entities::draw(void){
     }
 }
 
-void Entities::changeBehavior(GLint behavior){
-    if(behavior == 0 || behavior == 1 || behavior == 2){
-        currentState = behavior;
+void Entities::update(void){
+    if(rotationDirection == true){
+        rotation += 0.01f;
     } else {
-        std::cerr << "ILLEGAL BEHAVIOR CHANGES, SKIPPING..." << std::endl;
+        rotation -= 0.01f;
     }
+
+    if(rotation >= 360.0f || rotation <= -360.0f){
+        rotation = 0.0f;
+    }
+}
+
+void Entities::changeFillType(GLint fillType){
+    if(fillType == 0 || fillType == 1 || fillType == 2){
+        fillState = fillType;
+    } else {
+        std::cout << "ILLEGAL BEHAVIOR CHANGES, SKIPPING..." << std::endl;
+        fflush(stdout);
+    }
+}
+
+void Entities::changeRotationDirection(GLboolean rotDirection){
+    rotationDirection = rotDirection;
 }
 
 #endif

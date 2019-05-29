@@ -11,5 +11,14 @@ rm -rf bin/
 sleep 0.2
 mkdir bin/
 sleep 0.2
+echo "-------------------"
+echo ""
 echo "COMPILING..."
 $CC $CFLAGS -o bin/main.exec src/main.cpp -lGL -lGLU -lglut
+echo "------------"
+echo ""
+echo "Running..."
+echo "--- PROGRAM START ---"
+echo ""
+timeout 10 ./bin/main.exec
+echo "---- PROGRAM END ----"
