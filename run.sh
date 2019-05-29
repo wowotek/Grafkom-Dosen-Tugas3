@@ -22,5 +22,5 @@ echo ""
 echo "Running..."
 echo "--- PROGRAM START ---"
 echo ""
-timeout 10 ./bin/main.exec
+./bin/main.exec
 echo "---- PROGRAM END ----"
