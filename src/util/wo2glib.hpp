@@ -66,6 +66,5 @@ void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, 
 
 //--------------------------------------------- Vectors
 
-typedef 
 
 #endif
