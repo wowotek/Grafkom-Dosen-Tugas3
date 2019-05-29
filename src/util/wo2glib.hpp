@@ -59,10 +59,13 @@ void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, 
     polym(x, y, size, sides, rotation, GL_TRIANGLE_FAN)
 
 #define circlem(x, y, radius, SHAPE_MODE) \
-    polym(x, y, radius, 5000000, 0, SHAPE_MODE)
+    polym(x, y, radius, 720, 0, SHAPE_MODE)
 
 #define circle(x, y, radius) \
-    poly(x, y, radius, 5000000, 0)
+    poly(x, y, radius, 720, 0)
 
+//--------------------------------------------- Vectors
 
-#endif // WO2GLIB_HPP
+typedef 
+
+#endif
