@@ -9,10 +9,19 @@ OBJECTS := ${OBJ_DIR}/main.o
 
 SRC_DIR := ./src
 
-${BIN_DIR}/main : ${OBJECTS}; ${CC} $(CFLAGS) $^ -o $@ $(LDFLAGS)
+EXE := ${BIN_DIR}/main
 
-${OBJ_DIR}/%.o : ${SRC_DIR}/%.cpp; ${CC} ${CFLAGS} -c $< -o $@
 
-${OBJ_DIR}: ${BIN_DIR}; $(shell mkdir ${OBJ_DIR})
+all: ${EXE}
+
+.PHONY: clean
+
+clean:
+	rm -rf ${OBJECTS} ${EXE}
+
+${EXE}: ${OBJECTS}; ${CC} $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
+${OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp; ${CC} ${CFLAGS} -c $< -o $@
+
 ${BIN_DIR}:; $(shell mkdir ${BIN_DIR})
-
+${OBJ_DIR}:${BIN_DIR}; $(shell mkdir ${OBJ_DIR})

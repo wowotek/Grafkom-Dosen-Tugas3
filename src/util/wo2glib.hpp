@@ -32,11 +32,34 @@
         glVertex2f(x1, y1); glVertex2f(x2, y2); \
     glEnd()
 
+inline __attribute__((__always_inline__)) void
+rect (float x, float y, float w, float h) {
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + w, y);
+    glVertex2f(x + w, y + h);
+    glVertex2f(x, y + h);
+    glEnd();
+}
+
+/*
+inline __attribute_noinline__ void
+rect (float x, float y, float w, float h) {
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + w, y);
+    glVertex2f(x + w, y + h);
+    glVertex2f(x, y + h);
+    glEnd();
+}
+*/
+/*
 #define rect(x, y, width, height) \
     S_QUAD; \
         glVertex2f(x, y); glVertex2f(x + width, y); \
         glVertex2f(x + width, y + height); glVertex2f(x, y + height); \
     glEnd()
+*/
 
 #define rectm(x, y, width, height, mode) \
     glBegin(mode); \

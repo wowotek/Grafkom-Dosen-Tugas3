@@ -1,8 +1,9 @@
 #include "entities.hpp"
 
-Entities::Entities(GLfloat initPosX, GLfloat initPosY, GLfloat initR, GLfloat initG, GLfloat initB, GLint POLYGON_TYPE){
+Entities::Entities(GLfloat initPosX, GLfloat initPosY, GLfloat initSize, GLfloat initR, GLfloat initG, GLfloat initB, GLint POLYGON_TYPE){
     posX = initPosX;
     posY = initPosY;
+    size = initSize;
 
     r = initR;
     g = initG;
@@ -17,13 +18,13 @@ void Entities::drawFill(void){
     switch(polygon_type){
         default: break;
         case 0:
-            poly(posX, posY, 50, 4, rotation);
+            poly(posX, posY, size, 4, rotation);
             break;
         case 1:
-            poly(posX, posY, 50, 1500, rotation);
+            poly(posX, posY, size, 1500, rotation);
             break;
         case 2:
-            poly(posX, posY, 50, 5, rotation);
+            poly(posX, posY, size, 5, rotation);
             break;
     }
 }
@@ -34,13 +35,13 @@ void Entities::drawWhite(void){
     switch(polygon_type){
         default: break;
         case 0:
-            poly(posX, posY, 50, 4, rotation);
+            poly(posX, posY, size, 4, rotation);
             break;
         case 1:
-            poly(posX, posY, 50, 1500, rotation);
+            poly(posX, posY, size, 1500, rotation);
             break;
         case 2:
-            poly(posX, posY, 50, 5, rotation);
+            poly(posX, posY, size, 5, rotation);
             break;
     }
 }
@@ -51,13 +52,13 @@ void Entities::drawLine(void){
     switch(polygon_type){
         default: break;
         case 0:
-            polym(posX, posY, 50, 4, rotation, GL_LINE_LOOP);
+            polym(posX, posY, size, 4, rotation, GL_LINE_LOOP);
             break;
         case 1:
-            polym(posX, posY, 50, 1500, rotation, GL_LINE_LOOP);
+            polym(posX, posY, size, 1500, rotation, GL_LINE_LOOP);
             break;
         case 2:
-            polym(posX, posY, 50, 5, rotation, GL_LINE_LOOP);
+            polym(posX, posY, size, 5, rotation, GL_LINE_LOOP);
             break;
     }
 }

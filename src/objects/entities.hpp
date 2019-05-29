@@ -9,6 +9,7 @@ class Entities{
     private:
         GLfloat posX, posY;
         GLfloat r, g, b;
+        GLfloat size;
 
         // 0 = Square
         // 1 = Circle
@@ -30,7 +31,7 @@ class Entities{
         void drawLine(void);
 
     public:
-        Entities(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLint);
+        Entities(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLint);
 
         void draw(void);
         void update(void);
