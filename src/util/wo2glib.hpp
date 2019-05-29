@@ -85,7 +85,7 @@ void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, 
     polym(x, y, radius, 720, 0, SHAPE_MODE)
 
 #define circle(x, y, radius) \
-    poly(x, y, radius, 720, 0)
+    poly(x, y, radius, 32, 0)
 
 //--------------------------------------------- Vectors
 
