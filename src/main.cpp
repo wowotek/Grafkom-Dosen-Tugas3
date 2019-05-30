@@ -4,9 +4,9 @@ void renderDisplay(void);
 void init(void);
 void updateScreen(GLint);
 
-Entities   persegi(-0.5, 0, 0.15, 1, 0, 0, 0);
-Entities lingkaran(0, 0, 0.15, 0, 1, 0, 1);
-Entities segi_lima(0.5, 0, 0.15, 0, 0, 1, 2);
+Entities   persegi(-0.75, 0, 0.25, 1, 0, 0, 0);
+Entities lingkaran(0, 0, 0.25, 0, 1, 0, 1);
+Entities segi_lima(0.75, 0, 0.25, 0, 0, 1, 2);
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -18,7 +18,6 @@ int main(int argc, char ** argv){
     aspect = WIDTH/HEIGHT;
 
     init();
-
 
     segi_lima.changeRotationDirection(false);
 
