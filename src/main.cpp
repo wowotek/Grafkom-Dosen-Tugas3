@@ -336,36 +336,36 @@ void updateScreen(GLint time) {
 
 void ActualDraw (float deltaTime)
 {
-    glPushMatrix();
-    glClear(GL_COLOR_BUFFER_BIT);
-    gluOrtho2D(-aspect, aspect, -1.0, 1.0);
-
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     for (unsigned int i = 0; i < bodies.size(); ++i)
     {
-        float s = .2f / length(bodies[i].velocity);
-        glColor3f(1.0f-s, 0.25f + 0.5f*s, 0.25f + 0.15f*s);
+        //float s = .2f / length(bodies[i].velocity);
+        glColor3f(1.0f, 1.0f, 1.0f);
     
         circle(bodies[i].position.x + bodies[i].velocity.x * deltaTime,
                bodies[i].position.y + bodies[i].velocity.y * deltaTime,
                bodies[i].radius);
     }
-
-    glPopMatrix();
 }
 
 void DrawAntialised (float deltaTime)
 {
-    glClear(GL_ACCUM_BUFFER_BIT);
+    //glClear(GL_ACCUM_BUFFER_BIT);
 
     unsigned int uIterAA = 2;
-    for(unsigned int i = 0; i < uIterAA; ++i)
+    for(unsigned int x = 0; x < uIterAA; ++x)
     {
-        for(unsigned int j = 0; j < uIterAA; ++j)
+        for(unsigned int y = 0; y < uIterAA; ++y)
         {
             glPushMatrix();
-            vec2 delta = scaleScreenToWorld( 1.0f / (vec2(i, j) + 0.5f) );
+            vec2 delta = scaleScreenToWorld( 1.0f / (vec2(x, y) + 0.5f) );
             glTranslatef(delta.x, delta.y, 0.0f);
+
+
+            glClear(GL_COLOR_BUFFER_BIT);
             ActualDraw(deltaTime);
+            
             glPopMatrix();
 
             unsigned int n = uIterAA * uIterAA;
@@ -377,8 +377,8 @@ void DrawAntialised (float deltaTime)
         }
     }
 
-    glAccum(GL_RETURN, 1.0);
-    glFlush();
+    //glAccum(GL_RETURN, 1.0);
+    //glFlush();
 }
 
 void renderDisplay(void) {
@@ -390,6 +390,44 @@ void renderDisplay(void) {
 
     glLoadIdentity();
 
+    glClear(GL_ACCUM_BUFFER_BIT);
+
+    unsigned int uMotionBlurSamples = 16;
+    float fMotionBlurFPS = 60.0f;
+    float fMotionBlurDeltaTime = 1.0f / fMotionBlurFPS;
+
+    for (unsigned int i = 0; i < uMotionBlurSamples; ++i)
+    {
+        unsigned int uIterAA = 2;
+        for(unsigned int x = 0; x < uIterAA; ++x)
+        {
+            for(unsigned int y = 0; y < uIterAA; ++y)
+            {
+                glPushMatrix();
+                gluOrtho2D(-aspect, aspect, -1.0, 1.0);
+                vec2 delta = scaleScreenToWorld( (vec2(x, y) + 0.5f)/vec2(uIterAA) );
+                glTranslatef(delta.x, delta.y, 0.0f);
+
+                ActualDraw( -fMotionBlurDeltaTime * (float)(i + 1) / (float) uMotionBlurSamples );
+                
+                glPopMatrix();
+
+
+
+
+                unsigned int n = uIterAA * uIterAA;
+                
+                glReadBuffer(GL_BACK);
+                glDrawBuffer(GL_BACK);
+                glAccum(GL_ACCUM, 1.0 / (n * uMotionBlurSamples) );
+            }
+        }
+    }
+
+    glAccum(GL_RETURN, 1.0);
+    glFlush();
+
+/*
     glClear(GL_ACCUM_BUFFER_BIT);
 
     unsigned int uMotionBlurSamples = 8;
@@ -408,6 +446,6 @@ void renderDisplay(void) {
 
     glAccum(GL_RETURN, 1.0);
     glFlush();
-
+*/
     glutSwapBuffers();
 }   
