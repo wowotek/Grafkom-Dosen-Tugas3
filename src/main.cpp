@@ -11,7 +11,7 @@ Entities segi_lima(0.75, 0, 0.25, 0, 0, 1, 2);
 #define WIDTH 640
 #define HEIGHT 480
 
-float aspect = 1.0;
+float aspect = 1.0; 
 
 int main(int argc, char ** argv){
     initGLWindow(WIDTH, HEIGHT, 2880, 540, "BelajarOpenGL-672017282", GLUT_DOUBLE | GLUT_RGB);
@@ -35,14 +35,10 @@ void init(void){
 }
 
 void updateScreen(GLint time){
-    
     persegi.update();
     lingkaran.update();
     segi_lima.update();
-    /*
 
-    rect(-0.5f, -0.5f, 1.0f, 1.0f);
-*/
     glutPostRedisplay();
     glutTimerFunc(time, updateScreen, time);
 }
