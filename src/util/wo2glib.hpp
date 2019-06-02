@@ -29,32 +29,36 @@
 #define S_POLYGON glBegin(GL_POLYGON)
 
 //--------------------------------------------- PRIMITIVE 2D SHAPE
-#define point(x ,y) \
-    S_POINT; \
-        glVertex2f(x, y); \
-    glEnd() 
+void point(GLfloat x ,GLfloat y){
+    S_POINT;
+        glVertex2f(x, y);
+    glEnd();
+}
 
-#define line(x1, y1, x2, y2) \
-    S_LINE; \
-        glVertex2f(x1, y1); glVertex2f(x2, y2); \
-    glEnd()
+void line(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2){
+    S_LINE;
+        glVertex2f(x1, y1); glVertex2f(x2, y2);
+    glEnd();
+}
 
-#define rect(x, y, width, height) \
-    S_QUAD; \
-        glVertex2f(x, y); glVertex2f(x + width, y); \
-        glVertex2f(x + width, y + height); glVertex2f(x, y + height); \
-    glEnd()
+void rect(GLfloat x, GLfloat y, GLfloat width, GLfloat height){
+    S_QUAD;
+        glVertex2f(x, y); glVertex2f(x + width, y);
+        glVertex2f(x + width, y + height); glVertex2f(x, y + height);
+    glEnd();
+}
 
-#define rectm(x, y, width, height, mode) \
-    glBegin(mode); \
-        glVertex2f(x, y); glVertex2f(x + width, y); \
-        glVertex2f(x + width, y + height); glVertex2f(x, y + height); \
-    glEnd()
+void rectm(GLfloat x, GLfloat y, GLfloat width, GLfloat height, GLfloat mode) {
+    glBegin(mode);
+        glVertex2f(x, y); glVertex2f(x + width, y);
+        glVertex2f(x + width, y + height); glVertex2f(x, y + height);
+    glEnd();
+}
 
 void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, GLenum SHAPE_MODE){
-    float angleIncrement = (360.0f / sides) * M_PI / 180.0f;
+    GLfloat angleIncrement = (360.0f / sides) * M_PI / 180.0f;
     glBegin(SHAPE_MODE);
-        float angle = 0.0f - rotation;
+        GLfloat angle = 0.0f - rotation;
         for (size_t _k = 0; _k < sides; ++_k) {
             glVertex2f(x + (size * cos(angle)), y + (size * sin(angle)));
             angle += angleIncrement;
@@ -62,18 +66,18 @@ void polym(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation, 
     glEnd();
 }
 
-#define poly(x, y, size, sides, rotation) \
-    polym(x, y, size, sides, rotation, GL_TRIANGLE_FAN)
+void poly(GLfloat x, GLfloat y, GLfloat size, GLfloat sides, GLfloat rotation) {
+    polym(x, y, size, sides, rotation, GL_TRIANGLE_FAN);
+}
 
-#define circlem(x, y, radius, SHAPE_MODE) \
-    polym(x, y, radius, 720, 0, SHAPE_MODE)
+void circlem(GLfloat x, GLfloat y, GLfloat radius, GLfloat SHAPE_MODE) {
+    polym(x, y, radius, 720, 0, SHAPE_MODE);
+}
 
-#define circle(x, y, radius) \
-    poly(x, y, radius, 720, 0)
+void circle(GLfloat x, GLfloat y, GLfloat radius) {
+    poly(x, y, radius, 720, 0);
+}
 
 //--------------------------------------------- Events
-
-
-
 
 #endif

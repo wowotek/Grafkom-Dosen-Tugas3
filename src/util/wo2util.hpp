@@ -109,7 +109,6 @@ typedef tvec2<GLfloat> vec2f;
 typedef tvec2<GLint> vec2i;
 typedef tvec2<GLdouble> vec2d;
 
-
 #define TO_FPS(FPS_VALUE) 1000/FPS_VALUE
 #define randint(min, max) std::rand() % max + min
 
