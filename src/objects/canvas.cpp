@@ -8,6 +8,12 @@ void Canvas::draw(void){
 }
 
 void Canvas::add_coordinate(vec2f current_Coordinate){
+    for(size_t i = 0; i<coordinates.size(); i++){
+        if(current_Coordinate.x == coordinates[i].x && current_Coordinate.y == coordinates[i].y){
+            return; // CHECK IF THIS SPECIFIC COORDINATES IS EXIST
+        }
+    }
+
     coordinates.push_back(current_Coordinate);
 }
 

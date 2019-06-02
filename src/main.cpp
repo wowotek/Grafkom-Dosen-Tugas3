@@ -1,20 +1,23 @@
 #include "objects/entities.cpp"
 #include "objects/canvas.cpp"
 
+#define WIDTH 640
+#define HEIGHT 480
+
 void renderDisplay(void);
 void init(void);
 void updateScreen(GLint);
 void keyboardEvent(unsigned char, int, int);
 void mouseEvent(int, int, int, int);
 
-Entities persegi   ( 140, 240, 70.00, 1.00, 0.00, 0.00, 0.00);
-Entities lingkaran ( 320, 240, 70.00, 0.00, 1.00, 0.00, 1.00);
-Entities segi_lima ( 500, 240, 70.00, 0.00, 0.00, 1.00, 2.00);
+GLint width = WIDTH;
+GLint height = HEIGHT;
 
 Canvas canvas;
 
-#define WIDTH 640
-#define HEIGHT 480
+Entities persegi   ( 140, 240, 70.00, 1.00, 0.00, 0.00, 0.00);
+Entities lingkaran ( 320, 240, 70.00, 0.00, 1.00, 0.00, 1.00);
+Entities segi_lima ( 500, 240, 70.00, 0.00, 0.00, 1.00, 2.00);
 
 int main(int argc, char ** argv){
     initGLWindow(
@@ -38,9 +41,8 @@ void init(void){
     updateScreen(TO_FPS(120));
 
     glPointSize(10);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0, 640, 480, 0);
+
+    gluOrtho2D(0, WIDTH, HEIGHT, 0);
 }
 
 void keyboardEvent(unsigned char key, int, int){
@@ -69,8 +71,8 @@ void keyboardEvent(unsigned char key, int, int){
 
 void mouseEvent(int b, int s, int x, int y){
     if(b == 0) {
-        // std::cout << "Left Mouse Button is Clicked " << x << " " << y << std::endl;
-        canvas.print_all_coordinate();
+        std::cout << "Left Mouse Button is Clicked" << std::endl;
+        fflush(stdout);
 
         if(s == 0){
             canvas.add_coordinate(vec2f(x, y));
@@ -89,12 +91,11 @@ void updateScreen(GLint time){
 
 void renderDisplay(void){
     glClear(GL_COLOR_BUFFER_BIT);
-
-    glColor3f(1, 0, 0);
-
+    
     persegi.draw();
     lingkaran.draw();
     segi_lima.draw();
+
     canvas.draw();
 
     glutSwapBuffers();
