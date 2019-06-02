@@ -8,10 +8,7 @@ Entities   persegi(-0.5, 0, 0.15, 1, 0, 0, 0);
 Entities lingkaran(0, 0, 0.15, 0, 1, 0, 1);
 Entities segi_lima(0.5, 0, 0.15, 0, 0, 1, 2);
 */
-#define WIDTH 1280
-#define HEIGHT 720
-
-int width, height;
+int width = 1280, height = 720;
 float aspect = 1.0;
 
 
@@ -154,8 +151,8 @@ std::vector<Body> bodies;
 
 
 int main(int argc, char ** argv){
-    initGLWindow(WIDTH, HEIGHT, 2880, 540, "BelajarOpenGL-672017282", GLUT_DOUBLE | GLUT_RGB | GLUT_ACCUM);
-    aspect = WIDTH/HEIGHT;
+    initGLWindow(width, height, 2880, 540, "BelajarOpenGL-672017282", GLUT_DOUBLE | GLUT_RGB | GLUT_ACCUM);
+    aspect = (float)width / (float)height;
 
     int auxBufferCount;
     glGetIntegerv(GL_AUX_BUFFERS, &auxBufferCount);
@@ -392,7 +389,7 @@ void renderDisplay(void) {
 
     glClear(GL_ACCUM_BUFFER_BIT);
 
-    unsigned int uMotionBlurSamples = 16;
+    unsigned int uMotionBlurSamples = 4;
     float fMotionBlurFPS = 60.0f;
     float fMotionBlurDeltaTime = 1.0f / fMotionBlurFPS;
 
