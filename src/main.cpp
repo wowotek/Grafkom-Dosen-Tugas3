@@ -6,10 +6,11 @@ void init(void);
 void updateScreen(GLint);
 void keyboardEvent(unsigned char, int, int);
 void mouseEvent(int, int, int, int);
+void reshapeEvent(int, int);
 
-Entities persegi   (-0.75, 0.00, 1.00, 1.00, 0.00, 0.00, 0.00);
-Entities lingkaran ( 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 1.00);
-Entities segi_lima ( 0.75, 0.00, 1.00, 0.00, 0.00, 1.00, 2.00);
+Entities persegi   ( 140, 240, 70.00, 1.00, 0.00, 0.00, 0.00);
+Entities lingkaran ( 320, 240, 70.00, 0.00, 1.00, 0.00, 1.00);
+Entities segi_lima ( 500, 240, 70.00, 0.00, 0.00, 1.00, 2.00);
 
 Canvas canvas;
 
@@ -34,12 +35,35 @@ void init(void){
     glutDisplayFunc(renderDisplay);
     glutKeyboardFunc(keyboardEvent);
     glutMouseFunc(mouseEvent);
+    glutReshapeFunc(reshapeEvent);
 
     updateScreen(TO_FPS(120));
 
+    glPointSize(10);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, 640, 480, 0);
+}
+
+vec2f ScreenToWorld (vec2f pos)
+{
+    vec2f res = vec2f(WIDTH, HEIGHT);
+    pos = (pos+pos - res) / res.y;
+    return vec2f(pos.x, pos.y);
+}
+
+vec2f scaleScreenToWorld (vec2f v)
+{
+    vec2f res = vec2f(WIDTH, HEIGHT);
+    v = (v+v) / res;
+
+    return vec2f(v.x, v.y);   
+}
+
+void reshapeEvent(int w, int h){
+    GLfloat scale = w / h;
+
+    gluOrtho2D(0, scale, 0, 1);
 }
 
 void keyboardEvent(unsigned char key, int, int){
@@ -68,11 +92,11 @@ void keyboardEvent(unsigned char key, int, int){
 
 void mouseEvent(int b, int s, int x, int y){
     if(b == 0) {
-        std::cout << "Left Mouse Button is Clicked " << x << " " << y << std::endl;
-        //canvas.print_all_coordinate();
+        // std::cout << "Left Mouse Button is Clicked " << x << " " << y << std::endl;
+        canvas.print_all_coordinate();
 
         if(s == 0){
-            canvas.add_coordinate(vec2f((float)x/WIDTH, (float)y/HEIGHT));
+            canvas.add_coordinate(scaleScreenToWorld(vec2f(x, y)));
         }
     } 
 }
@@ -90,16 +114,11 @@ void renderDisplay(void){
     glClear(GL_COLOR_BUFFER_BIT);
 
     glColor3f(1, 0, 0);
-    S_QUAD;
-        glVertex2f(5, 5);
-        glVertex2f(5, 10);
-        glVertex2f(10, 10);
-        glVertex2f(10, 5);
-    glEnd();
 
     persegi.draw();
     lingkaran.draw();
     segi_lima.draw();
+    canvas.draw();
 
     glutSwapBuffers();
 }   

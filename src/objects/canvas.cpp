@@ -1,11 +1,8 @@
 #include "canvas.hpp"
 
-Canvas::Canvas(){
-
-}
-
 void Canvas::draw(void){
     for(size_t i=0; i<coordinates.size(); i++){
+        glColor3f(1, 1, 1);
         point(coordinates[i].x, coordinates[i].y);
     }
 }

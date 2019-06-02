@@ -10,7 +10,6 @@ class Canvas {
         std::vector<vec2f> coordinates;
     
     public:
-        Canvas();
         void print_all_coordinate(void);
         void add_coordinate(vec2f);
         void pop_coordinate(void);
