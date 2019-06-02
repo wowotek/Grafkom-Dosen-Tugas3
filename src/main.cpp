@@ -6,7 +6,6 @@ void init(void);
 void updateScreen(GLint);
 void keyboardEvent(unsigned char, int, int);
 void mouseEvent(int, int, int, int);
-void reshapeEvent(int, int);
 
 Entities persegi   ( 140, 240, 70.00, 1.00, 0.00, 0.00, 0.00);
 Entities lingkaran ( 320, 240, 70.00, 0.00, 1.00, 0.00, 1.00);
@@ -35,7 +34,6 @@ void init(void){
     glutDisplayFunc(renderDisplay);
     glutKeyboardFunc(keyboardEvent);
     glutMouseFunc(mouseEvent);
-    glutReshapeFunc(reshapeEvent);
 
     updateScreen(TO_FPS(120));
 
@@ -43,27 +41,6 @@ void init(void){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, 640, 480, 0);
-}
-
-vec2f ScreenToWorld (vec2f pos)
-{
-    vec2f res = vec2f(WIDTH, HEIGHT);
-    pos = (pos+pos - res) / res.y;
-    return vec2f(pos.x, pos.y);
-}
-
-vec2f scaleScreenToWorld (vec2f v)
-{
-    vec2f res = vec2f(WIDTH, HEIGHT);
-    v = (v+v) / res;
-
-    return vec2f(v.x, v.y);   
-}
-
-void reshapeEvent(int w, int h){
-    GLfloat scale = w / h;
-
-    gluOrtho2D(0, scale, 0, 1);
 }
 
 void keyboardEvent(unsigned char key, int, int){
@@ -96,7 +73,7 @@ void mouseEvent(int b, int s, int x, int y){
         canvas.print_all_coordinate();
 
         if(s == 0){
-            canvas.add_coordinate(scaleScreenToWorld(vec2f(x, y)));
+            canvas.add_coordinate(vec2f(x, y));
         }
     } 
 }
